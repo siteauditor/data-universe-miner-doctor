@@ -1,0 +1,43 @@
+# Keep the Docker build context small and reproducible.
+# Without this, `COPY . /app` would pull in the local virtualenv, build
+# artifacts, and caches — bloating the image and leaking host-specific state.
+
+# Virtualenvs / local envs
+.venv/
+venv/
+env/
+
+# Build & packaging artifacts
+# Literal dir patterns (trailing slash) are matched reliably; the glob is a
+# best-effort catch-all for renamed packages.
+dist/
+build/
+data_universe_miner_doctor.egg-info/
+*.egg-info
+*.egg
+
+# Python caches
+**/__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+
+# VCS / IDE / tooling / OS
+.git/
+.gitignore
+.github/
+.claude/
+.idea/
+.vscode/
+.DS_Store
+
+# Local tool output / state / throwaway scripts
+du-doctor-report.*
+du-doctor-bundle.zip
+*.log
+_*.py
+
+# Docs not needed at runtime (image is the CLI, not the docs)
+docs/
+examples/sample-report.md

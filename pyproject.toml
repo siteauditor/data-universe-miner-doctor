@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-universe-miner-doctor"
+version = "0.1.0"
+description = "Read-only diagnostic CLI for Bittensor Data Universe (SN13) miners — answers 'why is my miner not earning well?'"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Data Universe Miner Doctor contributors" }]
+keywords = ["bittensor", "data-universe", "subnet-13", "miner", "diagnostics", "monitoring"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+]
+
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "pydantic>=2.5.0",
+    "PyYAML>=6.0",
+    "psutil>=5.9.0",
+]
+
+[project.optional-dependencies]
+# The bittensor SDK is heavy and only needed for live chain/metagraph checks.
+# It is intentionally optional so the rest of the tool installs anywhere.
+bittensor = ["bittensor>=6.9.0"]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.6",
+    "black>=24.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/siteauditor/data-universe-miner-doctor"
+Repository = "https://github.com/siteauditor/data-universe-miner-doctor"
+"Subnet (Data Universe / SN13)" = "https://github.com/macrocosm-os/data-universe"
+
+[project.scripts]
+du-doctor = "du_doctor.cli:main"
+
+# Subnet profiles are discovered via this entry-point group; third parties can
+# register their own subnet here. The built-in is also registered directly.
+[project.entry-points."du_doctor.profiles"]
+data-universe = "du_doctor.profiles.data_universe:DATA_UNIVERSE"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["du_doctor*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# importlib mode keeps test discovery robust regardless of layout.
+addopts = "-q --import-mode=importlib"
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".venv", "build", "dist", "*.egg-info", "examples"]
+
+[tool.ruff.lint]
+# Lean, high-signal set. Deliberately NOT enabling BLE (blind-except) or RUF so
+# the codebase's intentional defensive `except Exception:  # noqa: BLE001`
+# handlers stay valid and RUF100 (unused-noqa) does not fire.
+select = ["E", "F", "B"]
+ignore = [
+    "E501",   # long lines: defensive message strings / regex; black owns wrapping
+    "B008",   # function call in default arg: Typer uses `typer.Option(...)` defaults
+    "E741",   # ambiguous var name `l` (used as a loop/comprehension var)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["F401", "F811", "B011", "E402"]
+"__init__.py" = ["F401"]   # package re-export surfaces

@@ -1,0 +1,115 @@
+# Data Universe Miner Doctor — example config
+#
+# Copy to ~/.du-doctor/config.yaml (or run `du-doctor init`) and edit the
+# fields marked TODO. Everything here is read-only; no secrets are stored.
+
+netuid: 13
+network: finney
+subnet_name: "Data Universe"
+subnet_repo_url: "https://github.com/macrocosm-os/data-universe"
+
+# Provide EITHER a hotkey ss58 directly (preferred, simplest)...
+hotkey_ss58: ""                 # TODO: e.g. "5F3sa2TJ...XyZ921"
+# ...OR a wallet name + hotkey name (only the PUBLIC ss58 is read; never unlocked).
+wallet_name: ""                 # TODO (optional)
+wallet_hotkey_name: ""          # TODO (optional)
+
+# Where your data-universe clone lives on this server.
+subnet_repo_path: ""            # TODO: e.g. "/home/ubuntu/data-universe"
+
+# Process discovery.
+miner_process_name: "miner.py"
+pm2_process_name: ""            # TODO (optional): the exact PM2 app name, e.g. "miner"
+miner_port: null                # TODO (optional): your axon port, e.g. 8091
+
+# Where to look for logs (files or directories; ~ is expanded).
+log_paths:
+  - "./logs"
+  - "./pm2.log"
+  - "~/.pm2/logs"
+
+# Where the miner stores local data / SQLite DB.
+data_paths:
+  - "./data"
+  - "./database"
+  - "./storage"
+  - "./local_storage"
+
+# Data Universe scraping config + credentials.
+scraping_config_path: "./scraping_config.json"   # TODO: full path recommended
+env_path: "./.env"                                # TODO: full path recommended
+
+check_interval_seconds: 300
+
+thresholds:
+  incentive_drop_percent: 25
+  emission_drop_percent: 25
+  rank_drop_percent: 25
+  disk_usage_warning_percent: 85
+  ram_usage_warning_percent: 85
+  cpu_usage_warning_percent: 90
+  stale_data_warning_hours: 24
+  stale_data_critical_hours: 72
+  pm2_restart_warning_count: 5
+  repo_behind_warning_commits: 3
+  repo_behind_critical_commits: 15
+
+data_universe:
+  requires_gpu: false
+  required_python_version: ">=3.10"
+  expected_files:
+    - "neurons/miner.py"
+    - "requirements.txt"
+    - "README.md"
+  expected_optional_files:
+    - "scraping_config.json"
+    - ".env"
+  scraper_credentials:
+    apify:
+      enabled_if_config_contains:
+        - "apify"
+        - "Apify"
+      required_env_names:
+        - "APIFY_API_TOKEN"
+        - "APIFY_TOKEN"
+    reddit:
+      enabled_if_config_contains:
+        - "reddit"
+        - "Reddit"
+      required_env_names:
+        - "REDDIT_CLIENT_ID"
+        - "REDDIT_CLIENT_SECRET"
+        - "REDDIT_USERNAME"
+        - "REDDIT_PASSWORD"
+  known_error_patterns:
+    critical:
+      - "hotkey not registered"
+      - "not registered"
+      - "cannot connect to subtensor"
+      - "failed to serve axon"
+      - "address already in use"
+      - "permission denied"
+      - "no module named"
+      - "traceback"
+      - "database is locked"
+      - "sqlite database is locked"
+      - "invalid signature"
+      - "authentication failed"
+      - "invalid apify token"
+      - "reddit authentication failed"
+      - "out of disk"
+      - "no space left on device"
+    warning:
+      - "timeout"
+      - "retrying"
+      - "rate limit"
+      - "too many requests"
+      - "deprecated"
+      - "no data scraped"
+      - "empty response"
+      - "validator rejected"
+      - "stale"
+      - "upload failed"
+      - "miner index"
+      - "storage upload"
+      - "s3 upload"
