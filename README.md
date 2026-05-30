@@ -88,27 +88,34 @@ local metrics snapshot) and the markdown report you ask it to create.
 
 ## 6. Installation
 
-Local install is the **primary, recommended** workflow (run it on the same
-server as your miner so it can see PM2, processes, logs, and the DB):
+Install from PyPI (Python 3.10+). Run it on the same server as your miner so it
+can see PM2, processes, logs, and the DB:
 
 ```bash
-git clone https://github.com/siteauditor/miner-doctor.git
-cd miner-doctor
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
+python3 -m venv ~/du-doctor && source ~/du-doctor/bin/activate
+pip install --upgrade pip
+pip install data-universe-miner-doctor
 ```
 
-The `bittensor` SDK is an **optional** extra (it is large). Install it in the
-same environment as your miner for live chain/metagraph checks:
+The `bittensor` SDK is an **optional** extra (it is large). Include it for live
+chain/metagraph checks — or install du-doctor into the venv your miner already
+uses (which already has the SDK):
 
 ```bash
-pip install -e ".[bittensor]"
-# or simply use the venv your miner already runs in
+pip install "data-universe-miner-doctor[bittensor]"
 ```
 
 > Without `bittensor`, every other check still works; the chain checks just
 > report `CRITICAL` with an install hint.
+
+Install from source instead (for development):
+
+```bash
+git clone https://github.com/siteauditor/data-universe-miner-doctor.git
+cd data-universe-miner-doctor
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+```
 
 Docker is supported but optional — see [Docker](#docker-optional).
 

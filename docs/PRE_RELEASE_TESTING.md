@@ -82,7 +82,7 @@ python -m venv $env:TEMP\du-clean
 ```
 
 **Verify metadata:** `twine check` passes and the wheel's `Project-URL: Repository` is
-`https://github.com/siteauditor/miner-doctor` (not the old `your-org` placeholder):
+`https://github.com/siteauditor/data-universe-miner-doctor`:
 
 ```bash
 python -m pip show -f data-universe-miner-doctor | grep -i repository    # or inspect dist METADATA
@@ -241,7 +241,7 @@ docker run --rm -v "$PWD":/work -w /work du-doctor check --json | jq .overall_st
 ## 9. Go / No-Go checklist
 
 - [ ] `ruff` + `black --check` + `pytest -q` (79) all green on 3.10–3.12.
-- [ ] `python -m build` + `twine check dist/*` pass; Repository URL is `siteauditor/miner-doctor`.
+- [ ] `python -m build` + `twine check dist/*` pass; Repository URL is `siteauditor/data-universe-miner-doctor`.
 - [ ] Wheel installs clean in a fresh venv; `du-doctor version` works.
 - [ ] CLI smoke matrix (§3) all pass; `check --json | jq .` valid; exit codes correct.
 - [ ] Redaction spot-check (§4) prints `clean` — zero leaked secrets; hotkey masked.
