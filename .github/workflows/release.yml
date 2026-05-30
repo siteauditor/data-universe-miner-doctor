@@ -45,6 +45,9 @@ jobs:
         # No password/token: PyPI Trusted Publishing exchanges the OIDC identity.
         # One-time PyPI setup: add a Trusted Publisher for this repo, workflow
         # file "release.yml", environment "pypi".
-        # For a dry run, point at TestPyPI first:
-        # with:
+        with:
+          # Idempotent: if this version is already on PyPI (e.g. a re-pushed tag),
+          # skip instead of failing the run.
+          skip-existing: true
+        # For a dry run, point at TestPyPI first, add:
         #   repository-url: https://test.pypi.org/legacy/
