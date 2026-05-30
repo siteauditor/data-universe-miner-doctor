@@ -108,7 +108,15 @@ pip install "data-universe-miner-doctor[bittensor]"
 > Without `bittensor`, every other check still works; the chain checks just
 > report `CRITICAL` with an install hint.
 
-Install from source instead (for development):
+**Install the latest directly from GitHub** (e.g. to get unreleased changes):
+
+```bash
+pip install "git+https://github.com/siteauditor/data-universe-miner-doctor.git"
+# with the bittensor extra:
+pip install "data-universe-miner-doctor[bittensor] @ git+https://github.com/siteauditor/data-universe-miner-doctor.git"
+```
+
+**Install from source** (for development):
 
 ```bash
 git clone https://github.com/siteauditor/data-universe-miner-doctor.git
