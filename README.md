@@ -280,23 +280,6 @@ A full markdown example is in [`examples/sample-report.md`](examples/sample-repo
       --subnet <key>` selects a `SubnetProfile` (`du_doctor/profiles/`); third
       parties register their own via the `du_doctor.profiles` entry-point group.
 
-## 14. Commercial roadmap
-
-The architecture (modular checks + stable JSON output) is deliberately ready for:
-
-1. **Free open-source CLI** (this repo).
-2. **Paid setup/debug service** for SN13 miners.
-3. **Telegram alerts** (maintained as a separate package).
-4. **Hosted monitoring SaaS** dashboard (separate, commercial).
-5. **Custom "Miner Doctor"** for other subnets.
-
-This repo is the free, open-source CLI. The optional alerting / push-agent /
-hosted-server layers are developed separately and are not part of this package.
-The CLI's modular checks and stable JSON output are designed to integrate with
-them cleanly.
-
----
-
 ## Docker (optional)
 
 Docker is **not required**; local install is the recommended path. If you want it:
