@@ -20,6 +20,36 @@ what to fix.
 
 ---
 
+## Example
+
+`du-doctor check` on a miner that's *online but earning poorly*:
+
+```text
+Overall status: CRITICAL
+
+[CRITICAL] Process:   No Data Universe miner process found in PM2.
+[CRITICAL] Config:    Apify scraper enabled but missing APIFY_API_TOKEN / APIFY_TOKEN.
+[WARNING]  Data:      Local DB hasn't changed since last check — scraper may be idle/blocked.
+[WARNING]  Data:      Most recent data file modified 28h ago (> 24h) — getting stale.
+[WARNING]  Repo:      6 commits behind origin/main.
+[WARNING]  Bittensor: incentive dropped 31% (>= 25%) since the last snapshot.
+
+Suggested fixes (priority order):
+ 1. Start the miner process:  pm2 start python -- ./neurons/miner.py ...
+ 2. Add the missing scraper credentials to your .env (APIFY_API_TOKEN / REDDIT_*).
+ 3. Investigate local data — ensure the scraper is producing fresh, growing data.
+ 4. Update the Data Universe repo:  cd <repo> && git pull   (then restart)
+```
+
+📄 **Full example report:** [`examples/sample-report.md`](https://github.com/siteauditor/data-universe-miner-doctor/blob/main/examples/sample-report.md)
+
+<!-- Tip: add a real screenshot — run `du-doctor check` on your miner, screenshot the
+     terminal, save it as docs/screenshot.png, then uncomment the line below:
+![du-doctor check output](docs/screenshot.png)
+-->
+
+---
+
 ## 1. What is Data Universe Miner Doctor?
 
 `du-doctor` runs locally on your miner's Ubuntu/Linux server and inspects:
