@@ -1,5 +1,11 @@
 # Data Universe Miner Doctor (`du-doctor`)
 
+[![PyPI](https://img.shields.io/pypi/v/data-universe-miner-doctor.svg)](https://pypi.org/project/data-universe-miner-doctor/)
+[![Downloads](https://static.pepy.tech/badge/data-universe-miner-doctor)](https://pepy.tech/project/data-universe-miner-doctor)
+[![Python](https://img.shields.io/pypi/pyversions/data-universe-miner-doctor.svg)](https://pypi.org/project/data-universe-miner-doctor/)
+[![CI](https://github.com/siteauditor/data-universe-miner-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/siteauditor/data-universe-miner-doctor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A focused, **read-only** diagnostic CLI for Bittensor **Data Universe** miners
 (NETUID **13**, repo [`macrocosm-os/data-universe`](https://github.com/macrocosm-os/data-universe)).
 
