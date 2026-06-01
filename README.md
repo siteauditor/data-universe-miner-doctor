@@ -151,7 +151,7 @@ Or put everything in the config once (`du-doctor init` then edit
 ## 8. Config examples
 
 `du-doctor init` writes `~/.du-doctor/config.yaml`. A fully-commented example is
-in [`examples/config.example.yaml`](examples/config.example.yaml). Key fields:
+in [`examples/config.example.yaml`](https://github.com/siteauditor/data-universe-miner-doctor/blob/main/examples/config.example.yaml). Key fields:
 
 ```yaml
 netuid: 13
@@ -239,7 +239,7 @@ Suggested fixes (priority order):
  5. Address scraper warnings in the logs (rate limits, upload/storage errors).
 ```
 
-A full markdown example is in [`examples/sample-report.md`](examples/sample-report.md).
+A full markdown example is in [`examples/sample-report.md`](https://github.com/siteauditor/data-universe-miner-doctor/blob/main/examples/sample-report.md).
 
 ## 11. How to interpret results
 
